@@ -1,0 +1,34 @@
+body{
+    margin: 0;
+    background-color: #34568B;
+    color: #fff;
+    font-size: 20px;
+}
+.menu{
+    height: 20vh;
+    width: 100%;
+    background-color: #DD4124;
+}
+.menu form{
+    padding: 30px;
+    float: right;
+}
+.menu h1{
+    padding: 30px;
+    position: absolute;
+}
+.link td{
+    transition: 0.5s;
+}
+.link td:hover{
+    transform: scale(1.2);
+    transition: 0.5s;
+}
+.link td a{
+    margin-right: 10px;
+    text-decoration: none;
+    color:peru;
+}
+.link td .format{
+    color: #fff;
+}
