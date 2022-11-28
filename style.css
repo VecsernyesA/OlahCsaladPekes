@@ -32,3 +32,13 @@ body{
 .link td .format{
     color: #fff;
 }
+
+.listazas #nev {
+    border: 1px solid #DD4124;
+    color: white;
+}
+
+.listazas #id {
+    border: 1px solid #DD4124;
+    color: white;
+}

@@ -132,13 +132,14 @@
                 <table>
                     <tr>
                         <td><label for = "MfelhaszId">Id:</label></td>
-                        <td><input type="number" name="MfelhaszId" autocomplete="off" required></td>
+                        <td><input type="number" name="MfelhaszId" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td><label for="MfelhaszNev">Felhasználónév:</label></td>
-                        <td><input type="text" name="MfelhaszNev" autocomplete="off" required></td>
+                        <td><input type="text" name="MfelhaszNev" autocomplete="off"></td>
                     </tr>
                 </table>
+                <button type="submit" name="listaz">Listáz</button>
                 <button type="submit" name = "modosit">Módosít</button>
                 <button type="submit" name = "torol">Töröl</button>
                 <button type="submit">Feltölt</button>
@@ -147,10 +148,62 @@
         }else{
             print "Ehhez a tartalomhoz csak a regisztrált felhasználók férhetnek hozzá!";
         }
+        print "<br><br>";
+        if(isset($_POST['listaz'])){
+            $listazas = $csatlakozas -> query("SELECT * FROM felhasznalo");
+            while($sor = $listazas -> fetch_assoc()){
+                print "<br><form action='' method='get'>
+                <table class='listazas'>
+                    <tr>    
+                        <td id='id'> " . $sor['id'] . " </td>
+                        <td>    </td>
+                        <td id='nev'> " . $sor['nev'] . " </td>
+                    </tr>
+                </table>
+                </form>
+                ";
+            }
+        }
+
+        if(isset($_POST['modosit'])){
+            $listazas = $csatlakozas -> query("SELECT * FROM felhasznalo");
+            while($sor = $listazas -> fetch_assoc()){
+                print "<br><form action='' method='POST'>
+                <table class='listazas'>
+                    <tr>    
+                        <td id='id'><button type='submit' name='link'>" . $sor['id'] . "</button></td>
+                        <td>    </td>
+                        <td id='nev'> " . $sor['nev'] . " </td>
+                    </tr>
+                </table>
+                </form>
+                ";
+            }
+        }
+        if(isset($_POST['link'])){
+            print "<br><form action='' method='POST'>
+            <label>Id megváltoztatás: </label><br>
+            <input type='number' name='mod_id' required><br>
+            <label>Felhasználónév megváltoztatás: </label><br>
+            <input type='text' name='mod_nev' required><br>
+            <label>Jelszó megváltoztatás: </label><br>
+            <input type='number' name='mod_jelszo' required><br>
+            <button type='submit'>Megváltoztat</button>
+            </form>
+            ";
+        }
+
+        if(isset($_POST['mod_id']) || isset($_POST['mod_nev']) || isset($_POST['mod_jelszo'])){
+            print "letezik";
+            $csatlakozas -> query("UPDATE felhasznalo SET id = " . $_POST['mod_id'] . ", nev = '" . $_POST['mod_nev'] . "', jelszo = " . $_POST['mod_jelszo'] . ";");
+        }
+
     }
     if(isset($_POST["regisztracio"])){
 
     ?>
+    <input type="text">
+
     <form action="" method="post">
         <label for="regNev">Add meg a neved:</label>
         <input type="text" name="regNev" required>
