@@ -14,6 +14,9 @@
             }
         }
     }
+    if(isset($_POST["regNev"]) && isset($_POST["regJelszo"])){
+        $csatlakozas -> query("INSERT INTO felhasznalo(`nev`, `jelszo`) VALUES('".$_POST["regNev"]."', ".$_POST["regJelszo"].")");
+    }
 
     $c = $oldal[0]["cim"];
     if(isset($_GET["c"])){
@@ -40,6 +43,13 @@
 </head>
 <body>
     <?php
+        if(!isset($_SESSION["id"])){
+    ?>
+        <form action="" method="post">
+                <button type="submit" name = "regisztracio">Regisztráció</button>
+        </form>
+    <?php
+        }
         if(!isset($_SESSION["id"]) && !isset($_POST["regisztracio"])){
     ?>
     <div class = "header">
@@ -59,9 +69,6 @@
                         <td><button type="submit" name = "bejelentkezes">Bejelentkezés</button></td>
                     </tr>
                 </table>
-        </form>
-        <form action="" method="post">
-            <button type="submit" name = "regisztracio">Regisztráció</button>
         </form>
             </div>
         </div>
@@ -108,7 +115,7 @@
         }
     if(isset($_GET["c"])){
         if($_GET["c"] == "Főoldal"){
-            if(isset($_SESSION["id"]) && !isset($_POST["regisztracio"])){
+            if(isset($_SESSION["id"])){
                 print "Üdvözöllek az oldalon!";
         ?>
         </tr>
@@ -140,6 +147,18 @@
         }else{
             print "Ehhez a tartalomhoz csak a regisztrált felhasználók férhetnek hozzá!";
         }
+    }
+    if(isset($_POST["regisztracio"])){
+
+    ?>
+    <form action="" method="post">
+        <label for="regNev">Add meg a neved:</label>
+        <input type="text" name="regNev" required>
+        <label for="regJelszo">Add meg a jelszót:</label>
+        <input type="password" name="regJelszo" required>
+        <button type="submit" name = "">Regisztráció</button>
+    </form>
+    <?php
     }
     ?>
 </body>
